@@ -1,13 +1,13 @@
-# Lab - 2
+# Lab - 3
 
 In this Lab we have 4 exercises:
-- [Exercise 2.1 - Simple variables](#exercise-2.1---simple-variables)
-- [Exercise 2.2 - Command line variables](#exercise-22---command-line-variables)
-- [Exercise 2.3 - Environment variables](#exercise-23---environment-variables)
-- [Exercise 2.4 - Variable precedence](#exercise-24---variable-precedence)
+- [Exercise 3.1 - Simple variables](#exercise-31---simple-variables)
+- [Exercise 3.2 - Command line variables](#exercise-32---command-line-variables)
+- [Exercise 3.3 - Environment variables](#exercise-33---environment-variables)
+- [Exercise 3.4 - Variable precedence](#exercise-34---variable-precedence)
 
 
-## Exercise 2.1 - Simple variables
+## Exercise 3.1 - Simple variables
 
 1. Change the working directory to `~/terraform_lab/lab-3`
 
@@ -64,7 +64,7 @@ In this Lab we have 4 exercises:
     ```
 
 
-## Exercise 2.2 - Command line variables
+## Exercise 3.2 - Command line variables
 
 1. Re-run terraform apply but now add the variable on the command line
 
@@ -79,7 +79,7 @@ In this Lab we have 4 exercises:
     ```
 
 
-## Exercise 2.3 - Environment variables
+## Exercise 3.3 - Environment variables
 
 1. Create an environment variable for the `file_content` variable
 
@@ -98,7 +98,7 @@ In this Lab we have 4 exercises:
     $ more /var/tmp/passwords.txt
     ```
 
-## Exercise 2.4 - Variable precedence
+## Exercise 3.4 - Variable precedence
 
 1. Edit the variables.tf file and add a default value of `file_content` varialbe.
 
