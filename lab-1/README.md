@@ -62,288 +62,282 @@ Use the link below to download the Terraform package on the home directory. Afte
       content = 123456
     }
     ```
+1. Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
+    ```
+    $ terraform init
 
-Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
+    ****************************   OUTPUT   ****************************
+    Initializing the backend...
 
-```
-$ terraform init
+    Initializing provider plugins...
+    - Finding latest version of hashicorp/local...              <--- Provider
+    - Installing hashicorp/local v2.2.2...                      <--- Provider verion
+    - Installed hashicorp/local v2.2.2 (signed by HashiCorp)
 
-****************************   OUTPUT   ****************************
-Initializing the backend...
+    Terraform has created a lock file .terraform.lock.hcl to record the provider
+    selections it made above. Include this file in your version control repository
+    so that Terraform can guarantee to make the same selections by default when
+    you run "terraform init" in the future.
 
-Initializing provider plugins...
-- Finding latest version of hashicorp/local...              <--- Provider
-- Installing hashicorp/local v2.2.2...                      <--- Provider verion
-- Installed hashicorp/local v2.2.2 (signed by HashiCorp)
+    Terraform has been successfully initialized!
 
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run "terraform init" in the future.
+    You may now begin working with Terraform. Try running "terraform plan" to see
+    any changes that are required for your infrastructure. All Terraform commands
+    should now work.
 
-Terraform has been successfully initialized!
+    If you ever set or change modules or backend configuration for Terraform,
+    rerun this command to reinitialize your working directory. If you forget, other
+    commands will detect it and remind you to do so if necessary.
+    *********************************************************************
+    ```
 
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
+1. Run the `terraform plan` command that will create an execution plan and let you preview the changes that Terraform plans to make to your infrastructure. 
 
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
-
-****************************   END   ****************************
-```
-
-Run the `terraform plan` command that will create an execution plan and let you preview the changes that Terraform plans to make to your infrastructure. 
 Type 'yes' to when requested by Terraform
+    ```
+    $ terraform plan
 
-```
-$ terraform plan
+    ****************************   OUTPUT   ****************************
+    Terraform used the selected providers to generate the following execution plan.
+    Resource actions are indicated with the following symbols:
+      + create
 
-****************************   OUTPUT   ****************************
-Terraform used the selected providers to generate the following execution plan.
-Resource actions are indicated with the following symbols:
-  + create
+    Terraform will perform the following actions:
 
-Terraform will perform the following actions:
+      # local_file.pass will be created
+      + resource "local_file" "pass" {
+          + content              = "123456"
+          + directory_permission = "0777"
+          + file_permission      = "0777"
+          + filename             = "/var/tmp/passwords.txt"
+          + id                   = (known after apply)
+        }
 
-  # local_file.pass will be created
-  + resource "local_file" "pass" {
-      + content              = "123456"
-      + directory_permission = "0777"
-      + file_permission      = "0777"
-      + filename             = "/var/tmp/passwords.txt"
-      + id                   = (known after apply)
-    }
+    Plan: 1 to add, 0 to change, 0 to destroy.
+    ********************************************************************
+    ```
 
-Plan: 1 to add, 0 to change, 0 to destroy.
-********************************************************************
-```
+1. Run the `terraform apply` command that executes the actions proposed in a Terraform plan.
 
-Run the `terraform apply` command that executes the actions proposed in a Terraform plan.
+    ```
+    $ terraform apply
 
-```
-$ terraform apply
+    ****************************   OUTPUT   ****************************
+    Terraform used the selected providers to generate the following execution plan. 
+    Resource actions are indicated with the following symbols:
+      + create
 
-****************************   OUTPUT   ****************************
-Terraform used the selected providers to generate the following execution plan. 
-Resource actions are indicated with the following symbols:
-  + create
+    Terraform will perform the following actions:
 
-Terraform will perform the following actions:
+      # local_file.pass will be created
+      + resource "local_file" "pass" {
+          + content              = "123456"
+          + directory_permission = "0777"
+          + file_permission      = "0777"
+          + filename             = "/var/tmp/passwords.txt"
+          + id                   = (known after apply)
+        }
 
-  # local_file.pass will be created
-  + resource "local_file" "pass" {
-      + content              = "123456"
-      + directory_permission = "0777"
-      + file_permission      = "0777"
-      + filename             = "/var/tmp/passwords.txt"
-      + id                   = (known after apply)
-    }
+    Plan: 1 to add, 0 to change, 0 to destroy.
 
-Plan: 1 to add, 0 to change, 0 to destroy.
+    Do you want to perform these actions?
+      Terraform will perform the actions described above.
+      Only 'yes' will be accepted to approve.
 
-Do you want to perform these actions?
-  Terraform will perform the actions described above.
-  Only 'yes' will be accepted to approve.
+      Enter a value: yes
 
-  Enter a value: yes
+    local_file.pass: Creating...
+    local_file.pass: Creation complete after 0s [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
 
-local_file.pass: Creating...
-local_file.pass: Creation complete after 0s [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+    Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+    ***********************************************************************
 
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
-***********************************************************************
-
-```
-
-
-The file should have now been created. Run the following command to verify that the file exists and that it has the correct contents
-
-```
-ls -l /var/tmp/
-more /var/tmp/passwords.txt
-```
+    ```
 
 
-## Section 3 - Manage infrastrucutre
+1. The file should have now been created. Run the following command to verify that the file exists and that it has the correct contents
 
-Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
+    ```
+    $ ls -l /var/tmp/
+    $ more /var/tmp/passwords.txt
+    ```
+
+
+## Exercise 3 - Manage infrastrucutre
+
+1. Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
 Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
 
-```
-$ more ~/terraform_lab/lab-1/terraform.tfstate
+    ```
+    $ more ~/terraform_lab/lab-1/terraform.tfstate
 
-****************************   OUTPUT   ****************************
-{
-  "version": 4,
-  "terraform_version": "1.1.8",
-  "serial": 4,
-  "lineage": "a0c4d20e-15b2-3634-e887-0d2197d82db0",
-  "outputs": {},
-  "resources": [
+    ****************************   OUTPUT   ****************************
     {
-      "mode": "managed",
-      "type": "local_file",
-      "name": "pass",
-      "provider": "provider[\"registry.terraform.io/hashicorp/local\"]",
-      "instances": [
+      "version": 4,
+      "terraform_version": "1.1.8",
+      "serial": 4,
+      "lineage": "a0c4d20e-15b2-3634-e887-0d2197d82db0",
+      "outputs": {},
+      "resources": [
         {
-          "schema_version": 0,
-          "attributes": {
-            "content": "123456",
-            "content_base64": null,
-            "directory_permission": "0777",
-            "file_permission": "0777",
-            "filename": "/var/tmp/passwords.txt",
-            "id": "7c4a8d09ca3762af61e59520943dc26494f8941b",
-            "sensitive_content": null,
-            "source": null
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA=="
+          "mode": "managed",
+          "type": "local_file",
+          "name": "pass",
+          "provider": "provider[\"registry.terraform.io/hashicorp/local\"]",
+          "instances": [
+            {
+              "schema_version": 0,
+              "attributes": {
+                "content": "123456",
+                "content_base64": null,
+                "directory_permission": "0777",
+                "file_permission": "0777",
+                "filename": "/var/tmp/passwords.txt",
+                "id": "7c4a8d09ca3762af61e59520943dc26494f8941b",
+                "sensitive_content": null,
+                "source": null
+              },
+              "sensitive_attributes": [],
+              "private": "bnVsbA=="
+            }
+          ]
         }
       ]
     }
-  ]
-}
-********************************************************************
-```
+    ********************************************************************
+    ```
 
-Let's now change the contents of the file that we have created through the terraform script. 
+1. Let's now change the contents of the file that we have created through the terraform script. 
 
-```
-nano main.tf
-```
+    ```
+    nano main.tf
+    ```
 
-Change `content = "123456"` to `content = "New Value"`, save the file and run `terraform apply' again.
+1. Change `content = "123456"` to `content = "New Value"`, save the file and run `terraform apply' again.
 
-```
-$ terraform apply
+    ```
+    $ terraform apply
 
-****************************   OUTPUT   ****************************
-local_file.pass: Refreshing state... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+    ****************************   OUTPUT   ****************************
+    local_file.pass: Refreshing state... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
--/+ destroy and then create replacement
+    Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+    -/+ destroy and then create replacement
 
-Terraform will perform the following actions:
+    Terraform will perform the following actions:
 
-  # local_file.pass must be replaced
--/+ resource "local_file" "pass" {
-      ~ content              = "123456" -> " New Value" # forces replacement
-      ~ id                   = "7c4a8d09ca3762af61e59520943dc26494f8941b" -> (known after apply)
-        # (3 unchanged attributes hidden)
+      # local_file.pass must be replaced
+    -/+ resource "local_file" "pass" {
+          ~ content              = "123456" -> " New Value" # forces replacement
+          ~ id                   = "7c4a8d09ca3762af61e59520943dc26494f8941b" -> (known after apply)
+            # (3 unchanged attributes hidden)
+        }
+
+    Plan: 1 to add, 0 to change, 1 to destroy.
+
+    Do you want to perform these actions?
+      Terraform will perform the actions described above.
+      Only 'yes' will be accepted to approve.
+
+      Enter a value: yes
+
+    local_file.pass: Destroying... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+    local_file.pass: Destruction complete after 0s
+    local_file.pass: Creating...
+    local_file.pass: Creation complete after 0s [id=767bc16967f0909bac7cb717777656f68dcba552]
+
+    Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+    **********************************************************************
+    ```
+
+1. The file should have now been modified. Run the following command to verify that the file contents have changed
+    ```
+    $ more /var/tmp/passwords.txt
+
+    ****** Output ********
+     New Value
+    **********************
+    ```
+
+1. Run the `terraform state list` command to list all resources in the state file.
+    ```
+    $ terraform state list
+
+    ****** Output ********
+    local_file.pass
+    **********************
+    ```
+
+1. Run the `terraform state show` command to show the attributes of a single resource in the Terraform state.
+    ```
+    $ terraform state show local_file.pass
+
+    ****** Output ********
+    # local_file.pass:
+    resource "local_file" "pass" {
+        content              = " New Value"
+        directory_permission = "0777"
+        file_permission      = "0777"
+        filename             = "/var/tmp/passwords.txt"
+        id                   = "767bc16967f0909bac7cb717777656f68dcba552"
     }
-
-Plan: 1 to add, 0 to change, 1 to destroy.
-
-Do you want to perform these actions?
-  Terraform will perform the actions described above.
-  Only 'yes' will be accepted to approve.
-
-  Enter a value: yes
-
-local_file.pass: Destroying... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
-local_file.pass: Destruction complete after 0s
-local_file.pass: Creating...
-local_file.pass: Creation complete after 0s [id=767bc16967f0909bac7cb717777656f68dcba552]
-
-Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
-**********************************************************************
-```
-
-The file should have now been modified. Run the following command to verify that the file contents have changed
-```
-$ more /var/tmp/passwords.txt
-
-****** Output ********
- New Value
-**********************
-```
-
-Run the `terraform state list` command to list all resources in the state file.
-```
-$ terraform state list
-
-****** Output ********
-local_file.pass
-**********************
-```
-
-Run the `terraform state show` command to show the attributes of a single resource in the Terraform state.
-
-```
-$ terraform state show local_file.pass
-
-****** Output ********
-# local_file.pass:
-resource "local_file" "pass" {
-    content              = " New Value"
-    directory_permission = "0777"
-    file_permission      = "0777"
-    filename             = "/var/tmp/passwords.txt"
-    id                   = "767bc16967f0909bac7cb717777656f68dcba552"
-}
-**********************
-```
+    **********************
+    ```
 
 
-Run the `terraform  show` command to provide human-readable output from all resources in the state. The output should be identical to the previous command as we only have 1 resource in the state file
+1. Run the `terraform  show` command to provide human-readable output from all resources in the state. The output should be identical to the previous command as we only have 1 resource in the state file
 
-```
-$ terraform show
-```
+    ```
+    $ terraform show
+    ```
 
-Run the `terraform version` command to display the current version of Terraform and all installed plugins.
-```
-$ terraform version
+1. Run the `terraform version` command to display the current version of Terraform and all installed plugins.
+    ```
+    $ terraform version
 
-****** Output ********
-Terraform v1.1.8
-on linux_386
-+ provider registry.terraform.io/hashicorp/local v2.2.2
-**********************
-```
+    ****** Output ********
+    Terraform v1.1.8
+    on linux_386
+    + provider registry.terraform.io/hashicorp/local v2.2.2
+    **********************
+    ```
 
 
 
-## Section 4 - Delete infrastrucutre
+## Exercise 4 - Delete infrastrucutre
 
-Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
+1. Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
+    ```
+    $ terraform destroy
 
+    ****************************   OUTPUT   ****************************
+    local_file.pass: Refreshing state... [id=767bc16967f0909bac7cb717777656f68dcba552]
 
-```
-$ terraform destroy
+    Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+      - destroy
 
-****************************   OUTPUT   ****************************
-local_file.pass: Refreshing state... [id=767bc16967f0909bac7cb717777656f68dcba552]
+    Terraform will perform the following actions:
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  - destroy
+      # local_file.pass will be destroyed
+      - resource "local_file" "pass" {
+          - content              = " New Value" -> null
+          - directory_permission = "0777" -> null
+          - file_permission      = "0777" -> null
+          - filename             = "/var/tmp/passwords.txt" -> null
+          - id                   = "767bc16967f0909bac7cb717777656f68dcba552" -> null
+        }
 
-Terraform will perform the following actions:
+    Plan: 0 to add, 0 to change, 1 to destroy.
 
-  # local_file.pass will be destroyed
-  - resource "local_file" "pass" {
-      - content              = " New Value" -> null
-      - directory_permission = "0777" -> null
-      - file_permission      = "0777" -> null
-      - filename             = "/var/tmp/passwords.txt" -> null
-      - id                   = "767bc16967f0909bac7cb717777656f68dcba552" -> null
-    }
+    Do you really want to destroy all resources?
+      Terraform will destroy all your managed infrastructure, as shown above.
+      There is no undo. Only 'yes' will be accepted to confirm.
 
-Plan: 0 to add, 0 to change, 1 to destroy.
+      Enter a value: yes
 
-Do you really want to destroy all resources?
-  Terraform will destroy all your managed infrastructure, as shown above.
-  There is no undo. Only 'yes' will be accepted to confirm.
+    local_file.pass: Destroying... [id=767bc16967f0909bac7cb717777656f68dcba552]
+    local_file.pass: Destruction complete after 0s
 
-  Enter a value: yes
-
-local_file.pass: Destroying... [id=767bc16967f0909bac7cb717777656f68dcba552]
-local_file.pass: Destruction complete after 0s
-
-Destroy complete! Resources: 1 destroyed.
-******************************************************************
-```
+    Destroy complete! Resources: 1 destroyed.
+    ******************************************************************
+    ```
