@@ -39,8 +39,6 @@
     $ terraform apply
 
     ****************************   OUTPUT   ****************************
-$ terraform apply --auto-approve
-
     Terraform used the selected providers to generate the following execution plan. 
     Resource actions are indicated with the following symbols:
       + create
@@ -80,7 +78,7 @@ $ terraform apply --auto-approve
 
     Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
     ***********************************************************************
-```
+    ```
 
 
 1. The files should have now been created. Run the following command to verify that the 2 files exists and that they the correct contents
@@ -108,22 +106,23 @@ $ terraform apply --auto-approve
 
     ```
     terraform destroy
-    ~~ strike ~~
     ```
-    ~~ strike ~~
+
 ## Exercise 2.2 - Count meta-argument
 
 1. Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
 Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
 
-```
-$ more ~/terraform_lab/lab-1/terraform.tfstate
+    ```
+    $ more ~/terraform_lab/lab-1/terraform.tfstate
 
-resource "local_file" "pass_count" { 
-  count = 2
-  filename = "/var/tmp/count_${count.index}.txt"
-  content = "this is file ${count.index}"
-}
+    resource "local_file" "pass_count" { 
+      count = 2
+      filename = "/var/tmp/count_${count.index}.txt"
+      content = "this is file ${count.index}"
+    }
 
-********************************************************************
-```
+    ********************************************************************
+    ~~Test~~
+    ```
+~~Test~~
