@@ -171,7 +171,7 @@ Use the link below to download the Terraform package on the home directory. Afte
     ```
 
 
-## Exercise 1.3 - Manage infrastrucutre
+## Exercise 1.3 - Manage infrastructure
 
 1. Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
 Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
@@ -312,7 +312,7 @@ Before we do that lets review the provider and attributes of the State File that
 
 
 
-## Exercise 1.4 - Delete infrastrucutre
+## Exercise 1.4 - Delete infrastructure
 
 1. Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
 
