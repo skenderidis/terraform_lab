@@ -1,13 +1,13 @@
 # Lab - 1
 
 In this Lab we have 4 exercises:
-- [Exercise 1 - Terraform installation](#exercise-1---terraform-installation)
-- [Exercise 2 - Create your first script](#exercise-2---create-your-first-script)
-- [Exercise 3 - Manage infrastrucutre](#exercise-3---manage-infrastrucutre)
-- [Exercise 4 - Delete infrastrucutre](#exercise-4---delete-infrastrucutre)
+- [Exercise 1.1 - Terraform installation](#exercise-1.1---terraform-installation)
+- [Exercise 1.2 - Create your first script](#exercise-1.2---create-your-first-script)
+- [Exercise 1.3 - Manage infrastrucutre](#exercise-1.3---manage-infrastrucutre)
+- [Exercise 1.4 - Delete infrastrucutre](#exercise-1.4---delete-infrastrucutre)
 
 
-## Exercise 1 - Terraform installation
+## Exercise 1.1 - Terraform installation
 
 1. The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
 Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package.
@@ -50,7 +50,7 @@ Use the link below to download the Terraform package on the home directory. Afte
       ...            ...
     ```
 
-## Exercise 2 - Create your first script
+## Exercise 1.2 - Create your first script
 
 1. Change the working directory to `~/terraform_lab/lab-1`
     ```
@@ -171,7 +171,7 @@ Use the link below to download the Terraform package on the home directory. Afte
     ```
 
 
-## Exercise 3 - Manage infrastrucutre
+## Exercise 1.3 - Manage infrastrucutre
 
 1. Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
 Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
@@ -312,7 +312,7 @@ Before we do that lets review the provider and attributes of the State File that
 
 
 
-## Exercise 4 - Delete infrastrucutre
+## Exercise 1.4 - Delete infrastrucutre
 
 1. Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
 
