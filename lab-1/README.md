@@ -17,14 +17,11 @@ echo $PATH
 mv ~/terraform /usr/local/bin/
 ```
 
-Verify that the installation worked by run the following command that lists Terraform's available subcommands.
+Verify that the installation worked by running the `terraform -help` command that lists Terraform's available subcommands.
 ```
-terraform -help
-```
+$ terraform -help
 
-You should see the following output
-
-```
+******************      OUTPUT      *******************
 Usage: terraform [global options] <subcommand> [args]
 
 The available commands for execution are listed below.
@@ -45,41 +42,41 @@ All other commands:
   ...
   ...
   ...
+************************ END *************************
 ```
 
-## First 
+## Run your first script
 
-Go to working directory terraform_lab/lab-1 
+Change the working directory to `~/terraform_lab/lab-1`
 
+```
 cd ~/terraform_lab/lab-1
+```
 
-verify that main.tf exists and review the contents
+Verify that main.tf exists and review the contents
 
+```
+$ more main.tf 
 
-Initialize the directory
-
-terraform init
-
-
-Review check that the contents of the main.tf
-
-'''
+**********      OUTPUT      *************
 resource "local_file" "pass" { 
-  filename = "var/tmp/passwords.txt"
+  filename = "/var/tmp/passwords.txt"
   content = 123456
 }
+**************** END *********************
+```
 
-'''
+Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
 
+```
+$ terraform init
 
-'''
-terraform init
-
+****************************   OUTPUT   ****************************
 Initializing the backend...
 
 Initializing provider plugins...
-- Finding latest version of hashicorp/local...
-- Installing hashicorp/local v2.2.2...
+- Finding latest version of hashicorp/local...              <--- Provider
+- Installing hashicorp/local v2.2.2...                      <--- Provider verion
 - Installed hashicorp/local v2.2.2 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
@@ -92,15 +89,23 @@ Terraform has been successfully initialized!
 You may now begin working with Terraform. Try running "terraform plan" to see
 any changes that are required for your infrastructure. All Terraform commands
 should now work.
-'''
 
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
 
-run terraform plan
+****************************   END   ****************************
+```
 
-terraform plan
+Run the `terraform plan` command that will create an execution plan and let you preview the changes that Terraform plans to make to your infrastructure. 
+Type 'yes' to when requested by Terraform
 
+```
+$ terraform plan
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+****************************   OUTPUT   ****************************
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
   + create
 
 Terraform will perform the following actions:
@@ -110,21 +115,53 @@ Terraform will perform the following actions:
       + content              = "123456"
       + directory_permission = "0777"
       + file_permission      = "0777"
-      + filename             = "var/tmp/passwords.txt"
+      + filename             = "/var/tmp/passwords.txt"
       + id                   = (known after apply)
     }
 
 Plan: 1 to add, 0 to change, 0 to destroy.
-'''
+********************************************************************
+```
 
-run terraform apply
+Run the `terraform apply` command that executes the actions proposed in a Terraform plan.
 
-Type 'yes' to when requested by terraform
+```
+$ terraform apply
 
-Review the output 
-'''
+****************************   OUTPUT   ****************************
+Terraform used the selected providers to generate the following execution plan. 
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.pass will be created
+  + resource "local_file" "pass" {
+      + content              = "123456"
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "/var/tmp/passwords.txt"
+      + id                   = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
 local_file.pass: Creating...
 local_file.pass: Creation complete after 0s [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
-'''
+```
+
+
+The file should have now been created. Run the following command to verify that the file exists
+
+```
+ls -l /var/tmp/
+```
 
