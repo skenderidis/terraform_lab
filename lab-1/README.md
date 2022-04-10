@@ -1,6 +1,6 @@
 # Lab - 1
 
-## Section 1 - Terraform installation
+## Exercise 1 - Terraform installation
 
 The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
 Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package.
@@ -23,7 +23,7 @@ Verify that the installation worked by running the `terraform -help` command tha
 ```
 $ terraform -help
 ```
-OUTPUT
+
 ```
 ******************      OUTPUT      *******************
 Usage: terraform [global options] <subcommand> [args]
@@ -42,13 +42,12 @@ Main commands:
 All other commands:
   console       Try Terraform expressions at an interactive command prompt
   fmt           Reformat your configuration in the standard style
-  ...
-  ...
-  ...
-  ...
+  ...            ...
+  ...            ...
+  ...            ...
 ```
 
-## Section 2 - Create the first script
+## Exercise 2 - Create your first script
 
 Change the working directory to `~/terraform_lab/lab-1`
 
@@ -58,15 +57,16 @@ cd ~/terraform_lab/lab-1
 
 Verify that main.tf exists and review the contents
 
+```bash
+more main.tf 
 ```
-$ more main.tf 
 
-**********      OUTPUT      *************
+main.tf
+```
 resource "local_file" "pass" { 
   filename = "/var/tmp/passwords.txt"
   content = 123456
 }
-**************** END *********************
 ```
 
 Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
