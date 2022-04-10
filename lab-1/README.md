@@ -3,8 +3,8 @@
 In this Lab we have 4 exercises:
 - [Exercise 1.1 - Terraform installation](#exercise-11---terraform-installation)
 - [Exercise 1.2 - Create your first script](#exercise-12---create-your-first-script)
-- [Exercise 1.3 - Manage infrastrucutre](#exercise-13---manage-infrastrucutre)
-- [Exercise 1.4 - Delete infrastrucutre](#exercise-14---delete-infrastrucutre)
+- [Exercise 1.3 - Manage infrastructure](#exercise-13---manage-infrastructure)
+- [Exercise 1.4 - Delete infrastructure](#exercise-14---delete-infrastructure)
 
 
 ## Exercise 1.1 - Terraform installation
