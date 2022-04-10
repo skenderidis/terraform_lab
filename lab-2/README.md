@@ -8,7 +8,7 @@
     cd ~/terraform_lab/lab-2
     ```
 
-1. Verify that for-each.tf exists and review the contents
+1. Verify that for-each.tf exists
 
     ```
     more for-each.tf 
@@ -27,13 +27,13 @@
     }
     ```
 
-1. Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
+1. Run the `terraform init` command to initialize the working directory.
 
     ```
     terraform init
     ```
 
-1. Run the `terraform apply` command.
+1. Run the `terraform apply` command so that the resources get created.
 
     ```
     $ terraform apply
@@ -117,9 +117,7 @@
       content = "this is file ${count.index}"
     }
     ```    
-1. Save the `count.tf` file and the `terraform apply` command so that the resources get created. Insert ***--auto-approve*** so that you don't have to confirm the proposed plan
-
-
+1. Save the `count.tf` file and the `terraform apply` command so that the resources get created.
     ```
     $ terraform apply
 
@@ -262,5 +260,4 @@
 
     Destroy complete! Resources: 4 destroyed.
     ***********************************************************************
-
     ```
