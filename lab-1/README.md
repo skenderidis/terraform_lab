@@ -1,9 +1,10 @@
 # Lab - 1
 
 In this Lab we have 4 exercises:
-- [Test](#Exercise-1-Terraform-installation)
-- [TLS Ingress (certificate on BIGIP)](#tls-ingress-certificate-on-bigip)
-- [Multi-TLS Ingress (certificate on BIGIP)](#multi-tls-ingress-certificate-on-bigip)
+- [Exercise 1 - Terraform installation](#exercise-1---terraform-installation)
+- [Exercise 2 - Create your first script](#exercise-2---create-your-first-script)
+- [Exercise 3 - Manage infrastrucutre](#exercise-3---manage-infrastrucutre)
+- [Exercise 4 - Delete infrastrucutre](#exercise-4---delete-infrastrucutre)
 
 
 ## Exercise 1 - Terraform installation
