@@ -1,5 +1,5 @@
 # Lab - 2
-In this Lab we have 2 exercises:
+In this lab we have 2 exercises:
 - [Exercise 2.1 - For_each meta-argument](#exercise-21---for_each-meta-argument)
 - [Exercise 2.2 - Count meta-argument](#exercise-22---count-meta-argument)
 
