@@ -22,9 +22,7 @@ mv ~/terraform /usr/local/bin/
 Verify that the installation worked by running the `terraform -help` command that lists Terraform's available subcommands.
 ```
 $ terraform -help
-```
 
-```
 ******************      OUTPUT      *******************
 Usage: terraform [global options] <subcommand> [args]
 
@@ -49,18 +47,18 @@ All other commands:
 
 ## Exercise 2 - Create your first script
 
-Change the working directory to `~/terraform_lab/lab-1`
+1. Change the working directory to `~/terraform_lab/lab-1`
 
 ```
 cd ~/terraform_lab/lab-1
 ```
 
-Verify that main.tf exists and review the contents
+1. Verify that main.tf exists 
 
 ```bash
 more main.tf 
 ```
-
+1. Review the file contents
 main.tf
 ```
 resource "local_file" "pass" { 
