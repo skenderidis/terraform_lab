@@ -170,7 +170,7 @@ more /var/tmp/passwords.txt
 ```
 
 
-## Section 2 - Manage infrastrucutre
+## Section 3 - Manage infrastrucutre
 
 Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
 Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
@@ -225,7 +225,7 @@ Change `content = "123456"` to `content = "New Value"`, save the file and run `t
 ```
 $ terraform apply
 
-
+****************************   OUTPUT   ****************************
 local_file.pass: Refreshing state... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
@@ -254,14 +254,100 @@ local_file.pass: Creating...
 local_file.pass: Creation complete after 0s [id=767bc16967f0909bac7cb717777656f68dcba552]
 
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+**********************************************************************
 ```
 
 The file should have now been modified. Run the following command to verify that the file contents have changed
-
 ```
 $ more /var/tmp/passwords.txt
 
 ****** Output ********
  New Value
 **********************
+```
+
+Run the `terraform state list` command to list all resources in the state file.
+```
+$ terraform state list
+
+****** Output ********
+local_file.pass
+**********************
+```
+
+Run the `terraform state show` command to show the attributes of a single resource in the Terraform state.
+
+```
+$ terraform state show local_file.pass
+
+****** Output ********
+# local_file.pass:
+resource "local_file" "pass" {
+    content              = " New Value"
+    directory_permission = "0777"
+    file_permission      = "0777"
+    filename             = "/var/tmp/passwords.txt"
+    id                   = "767bc16967f0909bac7cb717777656f68dcba552"
+}
+**********************
+```
+
+
+Run the `terraform  show` command to provide human-readable output from all resources in the state. The output should be identical to the previous command as we only have 1 resource in the state file
+
+```
+$ terraform show
+```
+
+Run the `terraform version` command to display the current version of Terraform and all installed plugins.
+```
+$ terraform version
+
+****** Output ********
+Terraform v1.1.8
+on linux_386
++ provider registry.terraform.io/hashicorp/local v2.2.2
+**********************
+```
+
+
+
+## Section 4 - Delete infrastrucutre
+
+Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
+
+
+```
+$ terraform destroy
+
+****************************   OUTPUT   ****************************
+local_file.pass: Refreshing state... [id=767bc16967f0909bac7cb717777656f68dcba552]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # local_file.pass will be destroyed
+  - resource "local_file" "pass" {
+      - content              = " New Value" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0777" -> null
+      - filename             = "/var/tmp/passwords.txt" -> null
+      - id                   = "767bc16967f0909bac7cb717777656f68dcba552" -> null
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+local_file.pass: Destroying... [id=767bc16967f0909bac7cb717777656f68dcba552]
+local_file.pass: Destruction complete after 0s
+
+Destroy complete! Resources: 1 destroyed.
+******************************************************************
 ```
