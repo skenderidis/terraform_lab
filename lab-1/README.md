@@ -1,27 +1,51 @@
 # Lab - 1
 ## Terraform installation
 
-### Step 1 - Download Terraform
-The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
+The first step is to identify the appropriate Terraform package for your system and download it as a zip archive. In this lab we will be using an Ubuntu 20.04 system. Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
 
+
+```
+cd ~
 wget https://releases.hashicorp.com/terraform/1.1.8/terraform_1.1.8_linux_386.zip
-
-After downloading Terraform, unzip the package. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed and Terraform will still function.
-
 unzip terraform_1.1.8_linux_386.zip 
+```
 
+Verify that `/usr/local/bin` is part of your PATH before moving Terraform binary to the specified location
 
+```
 echo $PATH
-
-verify /usr/local/bin 
-
-Move the Terraform binary to one of the listed locations.
-
 mv ~/terraform /usr/local/bin/
+```
 
-Verify that the installation worked by opening a new terminal session and listing Terraform's available subcommands.
+Verify that the installation worked by run the following command that lists Terraform's available subcommands.
+```
 terraform -help
+```
 
+You should see the following output
+
+```
+Usage: terraform [global options] <subcommand> [args]
+
+The available commands for execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.
+
+Main commands:
+  init          Prepare your working directory for other commands
+  validate      Check whether the configuration is valid
+  plan          Show changes required by the current configuration
+  apply         Create or update infrastructure
+  destroy       Destroy previously-created infrastructure
+
+All other commands:
+  console       Try Terraform expressions at an interactive command prompt
+  fmt           Reformat your configuration in the standard style
+  ...
+  ...
+  ...
+  ...
+```
 
 ## First 
 
@@ -75,7 +99,7 @@ run terraform plan
 
 terraform plan
 
-'''
+
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
 
