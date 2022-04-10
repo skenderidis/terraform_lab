@@ -2,7 +2,8 @@
 
 ## Section 1 - Terraform installation
 
-The first step is to identify the appropriate Terraform package for your system and download it as a zip archive. In this lab we will be using an Ubuntu 20.04 system. Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
+The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
+Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package.
 
 
 ```
@@ -11,7 +12,7 @@ wget https://releases.hashicorp.com/terraform/1.1.8/terraform_1.1.8_linux_386.zi
 unzip terraform_1.1.8_linux_386.zip 
 ```
 
-Verify that `/usr/local/bin` is part of your PATH before moving Terraform binary to the specified location
+Verify that `/usr/local/bin` is part of your PATH before moving Terraform binary to the specified location. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
 
 ```
 echo $PATH
@@ -21,7 +22,9 @@ mv ~/terraform /usr/local/bin/
 Verify that the installation worked by running the `terraform -help` command that lists Terraform's available subcommands.
 ```
 $ terraform -help
-
+```
+OUTPUT
+```
 ******************      OUTPUT      *******************
 Usage: terraform [global options] <subcommand> [args]
 
@@ -43,7 +46,6 @@ All other commands:
   ...
   ...
   ...
-************************ END *************************
 ```
 
 ## Section 2 - Create the first script
