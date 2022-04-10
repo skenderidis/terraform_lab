@@ -93,7 +93,8 @@ Use the link below to download the Terraform package on the home directory. Afte
 
 1. Run the `terraform plan` command that will create an execution plan and let you preview the changes that Terraform plans to make to your infrastructure. 
 
-Type 'yes' to when requested by Terraform
+    Type 'yes' to when requested by Terraform
+    
     ```
     $ terraform plan
 
@@ -307,6 +308,7 @@ Before we do that lets review the provider and attributes of the State File that
 ## Exercise 4 - Delete infrastrucutre
 
 1. Now let's delete the file that has been created. Run the `terraform destroy` command to remove all infratructure that has been created through this terraform script.
+
     ```
     $ terraform destroy
 
