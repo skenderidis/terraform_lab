@@ -1,5 +1,6 @@
 # Lab - 1
-## Terraform installation
+
+## Section 1 - Terraform installation
 
 The first step is to identify the appropriate Terraform package for your system and download it as a zip archive. In this lab we will be using an Ubuntu 20.04 system. Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
 
@@ -45,7 +46,7 @@ All other commands:
 ************************ END *************************
 ```
 
-## Run your first script
+## Section 2 - Create the first script
 
 Change the working directory to `~/terraform_lab/lab-1`
 
@@ -156,12 +157,111 @@ local_file.pass: Creating...
 local_file.pass: Creation complete after 0s [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+***********************************************************************
+
 ```
 
 
-The file should have now been created. Run the following command to verify that the file exists
+The file should have now been created. Run the following command to verify that the file exists and that it has the correct contents
 
 ```
 ls -l /var/tmp/
+more /var/tmp/passwords.txt
 ```
 
+
+## Section 2 - Manage infrastrucutre
+
+Now that the file has been created we will update the file terraform script and observe the behavior of Terraform. 
+Before we do that lets review the provider and attributes of the State File that has been created by Terraform. 
+
+```
+$ more ~/terraform_lab/lab-1/terraform.tfstate
+
+****************************   OUTPUT   ****************************
+{
+  "version": 4,
+  "terraform_version": "1.1.8",
+  "serial": 4,
+  "lineage": "a0c4d20e-15b2-3634-e887-0d2197d82db0",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "local_file",
+      "name": "pass",
+      "provider": "provider[\"registry.terraform.io/hashicorp/local\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "content": "123456",
+            "content_base64": null,
+            "directory_permission": "0777",
+            "file_permission": "0777",
+            "filename": "/var/tmp/passwords.txt",
+            "id": "7c4a8d09ca3762af61e59520943dc26494f8941b",
+            "sensitive_content": null,
+            "source": null
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ]
+}
+********************************************************************
+```
+
+Let's now change the contents of the file that we have created through the terraform script. 
+
+```
+nano main.tf
+```
+
+Change `content = "123456"` to `content = "New Value"`, save the file and run `terraform apply' again.
+
+```
+$ terraform apply
+
+
+local_file.pass: Refreshing state... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # local_file.pass must be replaced
+-/+ resource "local_file" "pass" {
+      ~ content              = "123456" -> " New Value" # forces replacement
+      ~ id                   = "7c4a8d09ca3762af61e59520943dc26494f8941b" -> (known after apply)
+        # (3 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+local_file.pass: Destroying... [id=7c4a8d09ca3762af61e59520943dc26494f8941b]
+local_file.pass: Destruction complete after 0s
+local_file.pass: Creating...
+local_file.pass: Creation complete after 0s [id=767bc16967f0909bac7cb717777656f68dcba552]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+```
+
+The file should have now been modified. Run the following command to verify that the file contents have changed
+
+```
+$ more /var/tmp/passwords.txt
+
+****** Output ********
+ New Value
+**********************
+```
