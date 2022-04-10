@@ -2,70 +2,66 @@
 
 ## Exercise 1 - Terraform installation
 
-The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
+1. The first step is to identify the appropriate Terraform package for your system and download it as a zip archive.
 Use the link below to download the Terraform package on the home directory. After downloading Terraform, unzip the package.
+    ```
+    cd ~
+    wget https://releases.hashicorp.com/terraform/1.1.8/terraform_1.1.8_linux_386.zip
+    unzip terraform_1.1.8_linux_386.zip 
+    ```
 
+1. Verify that `/usr/local/bin` is part of your PATH before moving Terraform binary to the specified location. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
 
-```
-cd ~
-wget https://releases.hashicorp.com/terraform/1.1.8/terraform_1.1.8_linux_386.zip
-unzip terraform_1.1.8_linux_386.zip 
-```
+    ```
+    echo $PATH
+    mv ~/terraform /usr/local/bin/
+    ```
 
-Verify that `/usr/local/bin` is part of your PATH before moving Terraform binary to the specified location. Terraform runs as a single binary named terraform. Any other files in the package can be safely removed.
+1. Verify that the installation worked by running the `terraform -help` command that lists Terraform's available subcommands.
+    ```
+    $ terraform -help
 
-```
-echo $PATH
-mv ~/terraform /usr/local/bin/
-```
+    ******************      OUTPUT      *******************
+    Usage: terraform [global options] <subcommand> [args]
 
-Verify that the installation worked by running the `terraform -help` command that lists Terraform's available subcommands.
-```
-$ terraform -help
+    The available commands for execution are listed below.
+    The primary workflow commands are given first, followed by
+    less common or more advanced commands.
 
-******************      OUTPUT      *******************
-Usage: terraform [global options] <subcommand> [args]
+    Main commands:
+      init          Prepare your working directory for other commands
+      validate      Check whether the configuration is valid
+      plan          Show changes required by the current configuration
+      apply         Create or update infrastructure
+      destroy       Destroy previously-created infrastructure
 
-The available commands for execution are listed below.
-The primary workflow commands are given first, followed by
-less common or more advanced commands.
-
-Main commands:
-  init          Prepare your working directory for other commands
-  validate      Check whether the configuration is valid
-  plan          Show changes required by the current configuration
-  apply         Create or update infrastructure
-  destroy       Destroy previously-created infrastructure
-
-All other commands:
-  console       Try Terraform expressions at an interactive command prompt
-  fmt           Reformat your configuration in the standard style
-  ...            ...
-  ...            ...
-  ...            ...
-```
+    All other commands:
+      console       Try Terraform expressions at an interactive command prompt
+      fmt           Reformat your configuration in the standard style
+      ...            ...
+      ...            ...
+      ...            ...
+    ```
 
 ## Exercise 2 - Create your first script
 
 1. Change the working directory to `~/terraform_lab/lab-1`
-
-```
-cd ~/terraform_lab/lab-1
-```
+    ```
+    cd ~/terraform_lab/lab-1
+    ```
 
 1. Verify that main.tf exists 
-
-```bash
-more main.tf 
-```
+    ```bash
+    more main.tf 
+    ```
 1. Review the file contents
-main.tf
-```
-resource "local_file" "pass" { 
-  filename = "/var/tmp/passwords.txt"
-  content = 123456
-}
-```
+    main.tf
+    ```
+    resource "local_file" "pass" { 
+      filename = "/var/tmp/passwords.txt"
+      content = 123456
+    }
+    ```
 
 Run the `terraform init` command to initialize a working directory containing Terraform configuration files. 
 
