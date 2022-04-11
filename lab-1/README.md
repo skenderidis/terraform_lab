@@ -1,6 +1,6 @@
 # Lab - 1
 
-In this Lab we have 4 exercises:
+In this lab we have 4 exercises that will go through the basic commands of Terraform (Init/Plan/Create/Delete):
 - [Exercise 1.1 - Terraform installation](#exercise-11---terraform-installation)
 - [Exercise 1.2 - Create your first script](#exercise-12---create-your-first-script)
 - [Exercise 1.3 - Manage infrastructure](#exercise-13---manage-infrastructure)
