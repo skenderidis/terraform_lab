@@ -1,7 +1,8 @@
 # Lab - 4
 In this lab we have 2 exercises:
 - [Exercise 4.1 - LTM module](#exercise-41---ltm-module)
-- [Exercise 4.2 - AWS module (TODO)](#exercise-41---aws-module)
+- [Exercise 4.2 - AWS VPC custom module (TODO)](#exercise-42---aws-module)
+- [Exercise 4.3 - AWS VPC published module (TODO)](#exercise-43---aws-module)
 
 ## Exercise 4.1 - LTM module
 
@@ -144,3 +145,190 @@ In this lab we have 2 exercises:
     ```
     
 1. Login to F5 to see that the Virtual Server has been created <a href="https://192.168.3.103/">https://192.168.3.103</a> .
+
+
+## Exercise 4.1 - AWS VPC Custom module
+
+1. We have to create a new module for creating VPCs in AWS environment. To do that we need to create the folder (same name as the module) that will contain all the Terraform configuration files.
+    ```
+    mkdir aws-infra
+    ```
+1. Create a new terraform file `aws.tf` under the child module directory (`aws-infra`)
+    ```
+    nano aws-infra/aws.tf
+    ```
+
+1. Copy & paste the configuration below 
+    ```
+    # variables
+    variable region { }
+    # VPC
+    resource "aws_vpc" "main" {
+      cidr_block                = "10.0.0.0/16"
+      enable_dns_hostnames      = true
+      enable_dns_support        = true  
+      tags                      = { Name = "VPC-infra" }
+    }
+    # Subnet
+    resource "aws_subnet" "my_subnet" {
+      vpc_id            = aws_vpc.main.id
+      cidr_block        = "10.0.0.0/24"
+      availability_zone = "${var.region}a"
+      tags              = { Name = "Subnet-1" }
+    }
+    ```
+1. Edit the existing `main.tf` (or create a new terraform file `main-aws.tf` under the root module directory)
+    ```
+    nano main.tf
+    ```
+
+1. Copy & paste the configuration below at the end of the existing file. The configuration below includes the aws provider, the variable used (region) and the reference to the module `aws-infra`.
+    ```
+    variable region {
+      default = "us-east-1"
+    }
+    provider aws {
+      region = var.region
+    }
+
+    module "server" {
+      source = "./aws-infra"
+      region =  var.region
+    }
+    ```
+1. Before applying the `terraform apply` command is it important that you setup the AWS Access Key and the AWS Secret as environment variables so that Terraform can authenticate with AWS API service.
+    ```
+    export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID"
+    export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
+    ```
+
+1. We need to run the `terraform init` command so that Terraform can initialize the new module and the new AWS provider.
+    ```
+    $ terraform init
+
+    ****************************   OUTPUT   ****************************
+    Initializing modules...
+    - server in aws-infra
+
+    Initializing the backend...
+
+    Initializing provider plugins...
+    - Reusing previous version of f5networks/bigip from the dependency lock file
+    - Finding latest version of hashicorp/aws...
+    - Using previously-installed f5networks/bigip v1.13.0
+    - Installing hashicorp/aws v4.9.0...
+    - Installed hashicorp/aws v4.9.0 (signed by HashiCorp)
+
+    Terraform has made some changes to the provider dependency selections recorded
+    in the .terraform.lock.hcl file. Review those changes and commit them to your
+    version control system if they represent changes you intended to make.
+
+    Terraform has been successfully initialized!
+
+    You may now begin working with Terraform. Try running "terraform plan" to see
+    any changes that are required for your infrastructure. All Terraform commands
+    should now work.
+
+    If you ever set or change modules or backend configuration for Terraform,
+    rerun this command to reinitialize your working directory. If you forget, other
+    commands will detect it and remind you to do so if necessary.
+    ***********************************************************************
+    ```
+
+
+1. Run the `terraform apply` command so that the resources get created in AWS.
+    ```
+    $ terraform apply --auto-approve
+
+    ****************************   OUTPUT   ****************************
+    module.virtual_server_01.bigip_ltm_virtual_server.http: Refreshing state... [id=/Common/Test]
+
+    Note: Objects have changed outside of Terraform
+
+    Terraform detected the following changes made outside of Terraform since the last "terraform apply":
+
+      # module.virtual_server_01.bigip_ltm_virtual_server.http has changed
+      ~ resource "bigip_ltm_virtual_server" "http" {
+            id                         = "/Common/Test"
+          + irules                     = []
+            name                       = "/Common/Test"
+          + policies                   = []
+          + security_log_profiles      = []
+          + vlans                      = []
+            # (11 unchanged attributes hidden)
+        }
+
+
+    Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include actions to undo or respond to these changes.
+
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+      + create
+
+    Terraform will perform the following actions:
+
+      # module.server.aws_subnet.my_subnet will be created
+      + resource "aws_subnet" "my_subnet" {
+          + arn                                            = (known after apply)
+          + assign_ipv6_address_on_creation                = false
+          + availability_zone                              = "us-east-1a"
+          + availability_zone_id                           = (known after apply)
+          + cidr_block                                     = "10.0.0.0/24"
+          + enable_dns64                                   = false
+          + enable_resource_name_dns_a_record_on_launch    = false
+          + enable_resource_name_dns_aaaa_record_on_launch = false
+          + id                                             = (known after apply)
+          + ipv6_cidr_block_association_id                 = (known after apply)
+          + ipv6_native                                    = false
+          + map_public_ip_on_launch                        = false
+          + owner_id                                       = (known after apply)
+          + private_dns_hostname_type_on_launch            = (known after apply)
+          + tags                                           = {
+              + "Name" = "Subnet-1"
+            }
+          + tags_all                                       = {
+              + "Name" = "Subnet-1"
+            }
+          + vpc_id                                         = (known after apply)
+        }
+
+      # module.server.aws_vpc.main will be created
+      + resource "aws_vpc" "main" {
+          + arn                                  = (known after apply)
+          + cidr_block                           = "10.0.0.0/16"
+          + default_network_acl_id               = (known after apply)
+          + default_route_table_id               = (known after apply)
+          + default_security_group_id            = (known after apply)
+          + dhcp_options_id                      = (known after apply)
+          + enable_classiclink                   = (known after apply)
+          + enable_classiclink_dns_support       = (known after apply)
+          + enable_dns_hostnames                 = true
+          + enable_dns_support                   = true
+          + id                                   = (known after apply)
+          + instance_tenancy                     = "default"
+          + ipv6_association_id                  = (known after apply)
+          + ipv6_cidr_block                      = (known after apply)
+          + ipv6_cidr_block_network_border_group = (known after apply)
+          + main_route_table_id                  = (known after apply)
+          + owner_id                             = (known after apply)
+          + tags                                 = {
+              + "Name" = "VPC-infra"
+            }
+          + tags_all                             = {
+              + "Name" = "VPC-infra"
+            }
+        }
+
+    Plan: 2 to add, 0 to change, 0 to destroy.
+    module.server.aws_vpc.main: Creating...
+    module.server.aws_vpc.main: Still creating... [10s elapsed]
+    module.server.aws_vpc.main: Creation complete after 15s [id=vpc-0cf780f994f1d18b7]
+    module.server.aws_subnet.my_subnet: Creating...
+    module.server.aws_subnet.my_subnet: Creation complete after 1s [id=subnet-07e6bf1391d0533df]
+
+    Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+    ***********************************************************************
+    ```
+
+1. Login AWS Dashboard and review that the new VPC/Subnet have been created.
