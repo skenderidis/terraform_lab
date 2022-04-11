@@ -63,7 +63,7 @@ Use the link below to download the Terraform package on the home directory. Afte
     ```
 1. Review the file contents
     main.tf
-    ```
+    ```tf
     resource "local_file" "pass" { 
       filename = "/var/tmp/passwords.txt"
       content = 123456
@@ -102,7 +102,7 @@ Use the link below to download the Terraform package on the home directory. Afte
 
     Type 'yes' to when requested by Terraform
     
-    ```
+    ```tf
     $ terraform plan
 
     ****************************   OUTPUT   ****************************
@@ -127,7 +127,7 @@ Use the link below to download the Terraform package on the home directory. Afte
 
 1. Run the `terraform apply` command that executes the actions proposed in a Terraform plan.
 
-    ```
+    ```tf
     $ terraform apply
 
     ****************************   OUTPUT   ****************************
