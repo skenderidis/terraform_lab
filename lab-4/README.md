@@ -6,10 +6,10 @@ In this lab we have 2 exercises:
 
 ## Exercise 4.1 - LTM module
 
-1. Change the working directory to `~/terraform_lab/lab-4`
+1. Change the working directory to `~/terraform_lab/lab-4/f5`
 
     ```
-    cd ~/terraform_lab/lab-4
+    cd ~/terraform_lab/lab-4/f5
     ```
 
 1. Verify that the module ltm exists 
@@ -21,7 +21,6 @@ In this lab we have 2 exercises:
     ├── ltm               <---  Module ltm
     │   └── vs_ltm.tf     
     ├── main.tf
-    ├── README.md
     *************************************
     ```
 
@@ -58,9 +57,9 @@ In this lab we have 2 exercises:
     }
 
     provider "bigip" {
-      address  = "192.168.3.103"
-      username = "admin"
-      password = "Kostas123"
+      address  = "x.x.x.x"
+      username = "username"
+      password = "password"
     }
 
     variable name { default = "Test"}
