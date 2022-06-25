@@ -145,7 +145,7 @@ In this lab we have 2 exercises:
 1. Login to F5 to see that the Virtual Server has been created <a href="https://192.168.3.103/">https://192.168.3.103</a> .
 
 
-## Exercise 4.1 - AWS VPC Custom module
+## Exercise 4.1 - AWS module
 
 1. We have to create a new module for creating VPCs in AWS environment. To do that we need to create the folder (same name as the module) that will contain all the Terraform configuration files.
     ```
