@@ -1,8 +1,7 @@
 # Lab - 4
 In this lab we have 2 exercises:
 - [Exercise 4.1 - LTM module](#exercise-41---ltm-module)
-- [Exercise 4.2 - AWS VPC custom module (TODO)](#exercise-42---aws-module)
-- [Exercise 4.3 - AWS VPC published module (TODO)](#exercise-43---aws-module)
+- [Exercise 4.2 - AWS VPC custom module](#exercise-42---aws-module)
 
 ## Exercise 4.1 - LTM module
 
